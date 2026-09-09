@@ -4,12 +4,65 @@ import { mockCharacter } from "@/features/characters/data/mock-character";
 import { midnightSeasonTwo } from "@/features/dungeons/data/midnight-season-two";
 import { dungeonGuides } from "@/features/guides/data/dungeon-guides";
 import { specializationGuides } from "@/features/guides/data/specialization-guides";
+import type {
+  EncounterGuide,
+  SpecializationMechanic,
+} from "@/features/guides/types";
 
 type GuidePageProps = {
   params: Promise<{
     dungeonSlug: string;
   }>;
 };
+
+function EncounterList({
+  encounters,
+  specMechanics,
+}: {
+  encounters: EncounterGuide[];
+  specMechanics: SpecializationMechanic[];
+}) {
+  return (
+    <ul>
+      {encounters.map((encounter) => {
+        const overlay = specMechanics.filter(
+          (mechanic) => mechanic.encounterId === encounter.id,
+        );
+
+        return (
+          <li key={encounter.id}>
+            <h3>{encounter.title}</h3>
+            <p>{encounter.summary}</p>
+            <ul>
+              {encounter.mechanics.map((mechanic) => (
+                <li key={mechanic.id}>
+                  <h4>{mechanic.title}</h4>
+                  <p>{mechanic.description}</p>
+                </li>
+              ))}
+            </ul>
+            {overlay.length > 0 ? (
+              <div>
+                <h4>
+                  {mockCharacter.specializationName} {mockCharacter.className}
+                </h4>
+                <ul>
+                  {overlay.map((mechanic) => (
+                    <li key={mechanic.id}>
+                      <h5>{mechanic.title}</h5>
+                      <p>{mechanic.priority}</p>
+                      <p>{mechanic.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 export default async function GuidePage({ params }: GuidePageProps) {
   const { dungeonSlug } = await params;
@@ -36,6 +89,9 @@ export default async function GuidePage({ params }: GuidePageProps) {
       guide.classSlug === mockCharacter.classSlug &&
       guide.specializationSlug === mockCharacter.specializationSlug,
   );
+
+  const specMechanics = specializationGuide?.mechanics ?? [];
+
   return (
     <main>
       <header>
@@ -72,10 +128,6 @@ export default async function GuidePage({ params }: GuidePageProps) {
           <li>
             <a href="#trash">Trash</a>
           </li>
-
-          <li>
-            <a href="#tips">Tips</a>
-          </li>
         </ul>
       </nav>
 
@@ -97,7 +149,16 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
       <section id="route">
         <h2>Route</h2>
-        <p>{guide.route}</p>
+        <iframe
+          src={guide.route.embedUrl}
+          title={guide.route.label}
+          style={{ width: "100%", height: "600px", border: "none" }}
+        />
+        <p>
+          <a href={guide.route.url} rel="noopener noreferrer" target="_blank">
+            Open on Keystone.guru
+          </a>
+        </p>
       </section>
 
       <section id="talents">
@@ -111,48 +172,18 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
       <section id="bosses">
         <h2>Bosses</h2>
-        <ul>
-          {guide.bosses.map((boss) => (
-            <li key={boss.id}>
-              <h3>{boss.title}</h3>
-              <p>{boss.description}</p>
-            </li>
-          ))}
-        </ul>
+        <EncounterList
+          encounters={guide.bosses}
+          specMechanics={specMechanics}
+        />
       </section>
 
       <section id="trash">
         <h2>Trash</h2>
-        <ul>
-          {guide.trash.map((mob) => (
-            <li key={mob.id}>
-              <h3>{mob.title}</h3>
-              <p>{mob.description}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section id="tips">
-        <h2>
-          {mockCharacter.specializationName} {mockCharacter.className} Tips
-        </h2>
-
-        {specializationGuide ? (
-          <ul>
-            {specializationGuide.tips.map((tip, i) => (
-              <li key={tip.id}>
-                <h3>
-                  {i + 1}. {tip.title}
-                </h3>
-                <p>{tip.priority}</p>
-                <p>{tip.description}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No Specialization tips are available yet.</p>
-        )}
+        <EncounterList
+          encounters={guide.trash}
+          specMechanics={specMechanics}
+        />
       </section>
     </main>
   );

@@ -5,40 +5,55 @@ export const kingsRestArmsGuide: SpecializationGuide = {
   classSlug: "warrior",
   specializationSlug: "arms",
   talentBuild: "This is where the picture or import string will go.",
-  tips: [
+  mechanics: [
     {
-      id: "spell-reflection-mchimba-trash",
+      id: "spell-reflection-hall-of-kings",
+      encounterId: "hall-of-kings",
       priority: "Must Have",
       title: "Spell Reflection",
       description:
-        "Useful in the 'Hall of Kings' just after The Golden Serpent on the way to Mchimba. Use against King Rahu'ai Forked Lightning & Queen Wasi Soul Bolt.",
+        "Use against King Rahu'ai Forked Lightning and Queen Wasi Soul Bolt.",
     },
     {
-      id: "spell-reflection-council-king-trash",
+      id: "spell-reflection-council-dazar-hall",
+      encounterId: "council-dazar-hall",
+      mechanicId: "hex",
       priority: "Must Have",
       title: "Spell Reflection",
       description:
-        "Useful in the hall leading to both Council and King Dazar. Use against Phantom Hex Priest Hex & Spectral Bolt AND Shadow of Zul Shadow Barrage",
+        "Use against Phantom Hex Priest Hex and Spectral Bolt, and Shadow of Zul Shadow Barrage.",
     },
     {
       id: "spell-reflection-council",
+      encounterId: "the-council-of-tribes",
+      mechanicId: "arc-lightning",
       priority: "Must Have",
       title: "Spell Reflection",
-      description: "Useful in Council. Use against Arc Lightning.",
+      description: "Use against Arc Lightning.",
     },
     {
-      id: "shockwave-general",
+      id: "shockwave-council-dazar-hall",
+      encounterId: "council-dazar-hall",
       priority: "Recommended",
       title: "Shockwave",
-      description:
-        "Useful when you need an AoE stop. Use in the hallway going to Council and King Dazar.",
+      description: "Useful when you need an AoE stop in this hallway.",
     },
     {
-      id: "berserker-rage-general",
+      id: "berserker-rage-entrance",
+      encounterId: "entrance-to-golden-serpent",
+      mechanicId: "pit-of-despair",
       priority: "Situational",
       title: "Berserker Rage",
       description:
-        "Very limited use in modern dungeons. Use if you get feared by a Minion of Zul before The Golden Serpent or while fighting the Shadow of Zul.",
+        "Very limited use in modern dungeons. Use if you get feared by a Minion of Zul.",
+    },
+    {
+      id: "berserker-rage-shadow-of-zul",
+      encounterId: "council-dazar-hall",
+      priority: "Situational",
+      title: "Berserker Rage",
+      description:
+        "Very limited use in modern dungeons. Use if you get feared while fighting the Shadow of Zul.",
     },
   ],
 };
