@@ -2,6 +2,7 @@ import type { SpecializationGuide } from "../types";
 
 export const kingsRestArmsGuide: SpecializationGuide = {
   dungeonSlug: "kings-rest",
+  classSlug: "warrior",
   specializationSlug: "arms",
   talentBuild: "This is where the picture or import string will go.",
   tips: [

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { mockCharacter } from "@/features/characters/data/mock-character";
 import { midnightSeasonTwo } from "@/features/dungeons/data/midnight-season-two";
 import { dungeonGuides } from "@/features/guides/data/dungeon-guides";
-import { SpecializationGuides } from "@/features/guides/data/specialization-guides";
+import { specializationGuides } from "@/features/guides/data/specialization-guides";
 
 type GuidePageProps = {
   params: Promise<{
@@ -30,9 +30,10 @@ export default async function GuidePage({ params }: GuidePageProps) {
     notFound();
   }
 
-  const specializationGuide = SpecializationGuides.find(
+  const specializationGuide = specializationGuides.find(
     (guide) =>
       guide.dungeonSlug === dungeonSlug &&
+      guide.classSlug === mockCharacter.classSlug &&
       guide.specializationSlug === mockCharacter.specializationSlug,
   );
   return (

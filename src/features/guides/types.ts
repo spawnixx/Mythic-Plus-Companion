@@ -29,6 +29,7 @@ export type SpecializationTip = {
 
 export type SpecializationGuide = {
   dungeonSlug: string;
+  classSlug: string;
   specializationSlug: string;
   talentBuild: string;
   tips: SpecializationTip[];
