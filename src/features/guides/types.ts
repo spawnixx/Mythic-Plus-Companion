@@ -4,11 +4,20 @@ export type GuidePriority = {
   description: string;
 };
 
+export type GuideEntry = {
+  id: string;
+  title: string;
+  description: string;
+};
+
 export type DungeonGuide = {
   id: string;
   dungeonSlug: string;
   summary: string;
   priorities: GuidePriority[];
+  route: string;
+  bosses: GuideEntry[];
+  trash: GuideEntry[];
 };
 
 export type SpecializationTip = {

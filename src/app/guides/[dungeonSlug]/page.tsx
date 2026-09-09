@@ -96,25 +96,40 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
       <section id="route">
         <h2>Route</h2>
-        <p>Route information will go here</p>
+        <p>{guide.route}</p>
       </section>
 
       <section id="talents">
         <h2>Talents</h2>
-        <p>
-          The Recommended Arms Warrior talent build and import string will go
-          here
-        </p>
+        {specializationGuide ? (
+          <p>{specializationGuide.talentBuild}</p>
+        ) : (
+          <p>No talent build is available for this specialization yet.</p>
+        )}
       </section>
 
       <section id="bosses">
         <h2>Bosses</h2>
-        <p>Boss Strategies will go here</p>
+        <ul>
+          {guide.bosses.map((boss) => (
+            <li key={boss.id}>
+              <h3>{boss.title}</h3>
+              <p>{boss.description}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section id="trash">
         <h2>Trash</h2>
-        <p>Import mobs and mechanics will go here</p>
+        <ul>
+          {guide.trash.map((mob) => (
+            <li key={mob.id}>
+              <h3>{mob.title}</h3>
+              <p>{mob.description}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section id="tips">
@@ -124,10 +139,12 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
         {specializationGuide ? (
           <ul>
-            {specializationGuide.tips.map((tip) => (
+            {specializationGuide.tips.map((tip, i) => (
               <li key={tip.id}>
+                <h3>
+                  {i + 1}. {tip.title}
+                </h3>
                 <p>{tip.priority}</p>
-                <h3>{tip.title}</h3>
                 <p>{tip.description}</p>
               </li>
             ))}
