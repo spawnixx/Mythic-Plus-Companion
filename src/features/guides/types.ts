@@ -1,23 +1,25 @@
-export type GuidePriority = {
+export interface GuidePriority = {
   id: string;
   title: string;
   description: string;
 };
 
-export type Mechanic = {
+export interface Mechanic = {
   id: string;
   title: string;
   description: string;
 };
 
-export type EncounterGuide = {
+export interface EncounterGuide = {
   id: string;
   title: string;
   summary: string;
   mechanics: Mechanic[];
 };
 
-export type DungeonRoute = {
+
+
+export interface DungeonRoute = {
   provider: "keystone-guru";
   url: string;
   embedUrl: string;
