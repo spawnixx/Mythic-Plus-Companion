@@ -26,7 +26,6 @@ export const kingsRestGuide = {
     },
   ],
   route: {
-    provider: "keystone-guru",
     url: "https://keystone.guru/route/kings-rest/F6rsN3j/kr-pug-friendly/2",
     embedUrl:
       "https://keystone.guru/route/kings-rest/F6rsN3j/kr-pug-friendly/embed",
@@ -71,7 +70,8 @@ export const kingsRestGuide = {
         {
           id: "burn-corruption",
           title: "Burn Corruption",
-          description: "Drops fire on expiration. Drop fire near the edges of the room.",
+          description:
+            "Drops fire on expiration. Drop fire near the edges of the room.",
         },
         {
           id: "drain-fluids",
@@ -122,7 +122,7 @@ export const kingsRestGuide = {
         {
           id: "arc-lightning",
           title: "Arc Lightning",
-          description: "Magic damage cast that can be reflected.",
+          description: "Magic damage cast that jumps to nearby characters.",
         },
       ],
     },
@@ -170,8 +170,7 @@ export const kingsRestGuide = {
         {
           id: "pit-of-despair",
           title: "Minion of Zul — Pit of Despair",
-          description:
-            "Magic fear. Dispel only on mechanic failure.",
+          description: "Magic fear. Dispel only on mechanic failure.",
         },
         {
           id: "bound-by-shadow",

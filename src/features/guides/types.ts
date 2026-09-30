@@ -1,32 +1,29 @@
-export interface GuidePriority = {
+export interface GuidePriority {
   id: string;
   title: string;
   description: string;
-};
+}
 
-export interface Mechanic = {
+export interface Mechanic {
   id: string;
   title: string;
   description: string;
-};
+}
 
-export interface EncounterGuide = {
+export interface EncounterGuide {
   id: string;
   title: string;
   summary: string;
   mechanics: Mechanic[];
-};
+}
 
-
-
-export interface DungeonRoute = {
-  provider: "keystone-guru";
+export interface DungeonRoute {
   url: string;
   embedUrl: string;
   label: string;
-};
+}
 
-export type DungeonGuide = {
+export interface DungeonGuide {
   id: string;
   dungeonSlug: string;
   summary: string;
@@ -34,21 +31,28 @@ export type DungeonGuide = {
   route: DungeonRoute;
   bosses: EncounterGuide[];
   trash: EncounterGuide[];
-};
+}
 
-export type SpecializationMechanic = {
+export type MechanicPriority = "Must Have" | "Recommended" | "Situational";
+
+export interface SpellData {
   id: string;
-  encounterId: string;
-  mechanicId?: string;
-  priority: "Must Have" | "Recommended" | "Situational";
-  title: string;
-  description: string;
-};
+  name: string;
+  icon: string;
+}
 
-export type SpecializationGuide = {
+export interface MechanicRecommendation {
+  id: string;
+  mechanicId: string;
+  spellId: string;
+  priority: MechanicPriority;
+  description: string;
+}
+
+export interface SpecializationGuide {
   dungeonSlug: string;
   classSlug: string;
   specializationSlug: string;
   talentBuild: string;
-  mechanics: SpecializationMechanic[];
-};
+  mechanics: MechanicRecommendation[];
+}

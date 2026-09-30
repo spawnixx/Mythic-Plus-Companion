@@ -17,7 +17,6 @@ export const metadata: Metadata = {
   title: "Mythic+ Companion",
   description:
     "Mythic+ Companion provides personalized dungeon guides for each spec.",
-  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -26,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <meta name="viewport" content="width:device-width" />
       <body className="min-h-full flex flex-col">
         <SiteHeader />
         {children}

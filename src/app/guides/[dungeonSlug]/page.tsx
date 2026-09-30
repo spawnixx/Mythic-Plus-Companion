@@ -6,8 +6,12 @@ import { dungeonGuides } from "@/features/guides/data/dungeon-guides";
 import { specializationGuides } from "@/features/guides/data/specialization-guides";
 import type {
   EncounterGuide,
-  SpecializationMechanic,
+  MechanicRecommendation,
+  SpellData,
 } from "@/features/guides/types";
+import { PageContainer } from "@/components/layout/page-container";
+import { warriorSpells } from "@/features/characters/data/warrior-spell-data";
+import EncounterCard from "@/features/guides/components/EncounterCard";
 
 type GuidePageProps = {
   params: Promise<{
@@ -18,48 +22,22 @@ type GuidePageProps = {
 function EncounterList({
   encounters,
   specMechanics,
+  spellData,
 }: {
   encounters: EncounterGuide[];
-  specMechanics: SpecializationMechanic[];
+  specMechanics: MechanicRecommendation[];
+  spellData: SpellData[];
 }) {
   return (
-    <ul>
-      {encounters.map((encounter) => {
-        const overlay = specMechanics.filter(
-          (mechanic) => mechanic.encounterId === encounter.id,
-        );
-
-        return (
-          <li key={encounter.id}>
-            <h3>{encounter.title}</h3>
-            <p>{encounter.summary}</p>
-            <ul>
-              {encounter.mechanics.map((mechanic) => (
-                <li key={mechanic.id}>
-                  <h4>{mechanic.title}</h4>
-                  <p>{mechanic.description}</p>
-                </li>
-              ))}
-            </ul>
-            {overlay.length > 0 ? (
-              <div>
-                <h4>
-                  {mockCharacter.specializationName} {mockCharacter.className}
-                </h4>
-                <ul>
-                  {overlay.map((mechanic) => (
-                    <li key={mechanic.id}>
-                      <h5>{mechanic.title}</h5>
-                      <p>{mechanic.priority}</p>
-                      <p>{mechanic.description}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </li>
-        );
-      })}
+    <ul className="space-y-6">
+      {encounters.map((encounter) => (
+        <EncounterCard
+          key={encounter.id}
+          encounter={encounter}
+          specMechanics={specMechanics}
+          spellData={spellData}
+        />
+      ))}
     </ul>
   );
 }
@@ -106,85 +84,88 @@ export default async function GuidePage({ params }: GuidePageProps) {
           {mockCharacter.className}
         </p>
       </header>
-
-      <nav aria-label="Dungeon Guide sections">
-        <ul>
-          <li>
-            <a href="#overview">Overview</a>
-          </li>
-
-          <li>
-            <a href="#route">Route</a>
-          </li>
-
-          <li>
-            <a href="#talents">Talents</a>
-          </li>
-
-          <li>
-            <a href="#bosses">Bosses</a>
-          </li>
-
-          <li>
-            <a href="#trash">Trash</a>
-          </li>
-        </ul>
-      </nav>
-
-      <section id="overview">
-        <h2>Overview</h2>
-        <p>{guide.summary}</p>
-
-        <h3>Preparation Priorities</h3>
-
-        <ul>
-          {guide.priorities.map((priority) => (
-            <li key={priority.id}>
-              <h4>{priority.title}</h4>
-              <p>{priority.description}</p>
+      <PageContainer>
+        <nav aria-label="Dungeon Guide sections">
+          <ul>
+            <li>
+              <a href="#overview">Overview</a>
             </li>
-          ))}
-        </ul>
-      </section>
 
-      <section id="route">
-        <h2>Route</h2>
-        <iframe
-          src={guide.route.embedUrl}
-          title={guide.route.label}
-          style={{ width: "100%", height: "600px", border: "none" }}
-        />
-        <p>
-          <a href={guide.route.url} rel="noopener noreferrer" target="_blank">
-            Open on Keystone.guru
-          </a>
-        </p>
-      </section>
+            <li>
+              <a href="#route">Route</a>
+            </li>
 
-      <section id="talents">
-        <h2>Talents</h2>
-        {specializationGuide ? (
-          <p>{specializationGuide.talentBuild}</p>
-        ) : (
-          <p>No talent build is available for this specialization yet.</p>
-        )}
-      </section>
+            <li>
+              <a href="#talents">Talents</a>
+            </li>
 
-      <section id="bosses">
-        <h2>Bosses</h2>
-        <EncounterList
-          encounters={guide.bosses}
-          specMechanics={specMechanics}
-        />
-      </section>
+            <li>
+              <a href="#bosses">Bosses</a>
+            </li>
 
-      <section id="trash">
-        <h2>Trash</h2>
-        <EncounterList
-          encounters={guide.trash}
-          specMechanics={specMechanics}
-        />
-      </section>
+            <li>
+              <a href="#trash">Trash</a>
+            </li>
+          </ul>
+        </nav>
+
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>{guide.summary}</p>
+
+          <h3>Preparation Priorities</h3>
+
+          <ul>
+            {guide.priorities.map((priority) => (
+              <li key={priority.id}>
+                <h4>{priority.title}</h4>
+                <p>{priority.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section id="route">
+          <h2>Route</h2>
+          <iframe
+            src={guide.route.embedUrl}
+            title={guide.route.label}
+            style={{ width: "100%", height: "600px", border: "none" }}
+          />
+        </section>
+
+        <section id="talents">
+          <h2>Talents</h2>
+          {specializationGuide ? (
+            <>
+              <p>{specializationGuide.talentBuild}</p>
+              <button>View Full Talent build here</button>
+            </>
+          ) : (
+            <p>No talent build is available for this specialization yet.</p>
+          )}
+        </section>
+
+        <section id="bosses">
+          <div id="bosses">
+            <h2>Bosses</h2>
+            <EncounterList
+              encounters={guide.bosses}
+              specMechanics={specMechanics}
+              spellData={warriorSpells}
+            />
+          </div>
+        </section>
+
+        <section id="trash">
+          <h2>Trash</h2>
+          <EncounterList
+            encounters={guide.trash}
+            specMechanics={specMechanics}
+            spellData={warriorSpells}
+          />
+        </section>
+      </PageContainer>
     </main>
   );
 }
