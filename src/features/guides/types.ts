@@ -7,6 +7,7 @@ export interface GuidePriority {
 export interface Mechanic {
   id: string;
   title: string;
+  icon?: string;
   description: string;
 }
 
@@ -14,6 +15,7 @@ export interface EncounterGuide {
   id: string;
   title: string;
   summary: string;
+  portrait?: string;
   mechanics: Mechanic[];
 }
 

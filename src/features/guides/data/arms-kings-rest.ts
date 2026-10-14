@@ -56,6 +56,14 @@ export const kingsRestArmsGuide: SpecializationGuide = {
       description: "Useful when you need an AoE stop in this hallway.",
     },
     {
+      id: "shockwave-golden-serpent",
+      mechanicId: "lucres-call",
+      spellId: "shockwave",
+      priority: "Situational",
+      description:
+        "Useful when you need to stop the mobs from getting to the Golden Serpent.",
+    },
+    {
       id: "berserker-rage-minion-of-zul",
       mechanicId: "pit-of-despair",
       spellId: "berserker-rage",

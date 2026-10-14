@@ -4,16 +4,16 @@ export const warriorSpells: SpellData[] = [
   {
     id: "spell-reflection",
     name: "Spell Reflection",
-    icon: "",
+    icon: "/icons/spells/warrior/spell-reflection.jpg",
   },
   {
     id: "shockwave",
     name: "Shockwave",
-    icon: "",
+    icon: "/icons/spells/warrior/shockwave.jpg",
   },
   {
     id: "berserker-rage",
     name: "Berserker Rage",
-    icon: "",
+    icon: "/icons/spells/warrior/berserker-rage.jpg",
   },
 ];
